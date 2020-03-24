@@ -1,11 +1,12 @@
 const fs = require('fs');
 const http = require('http');
+const path = require('path');
 
 const server = http.createServer(function (req, res) {
-    if (req.method === 'GET') {
+    if (req.url === '/') {
         res.writeHead(200, {'Content-Type': 'text/html'});
         fs.createReadStream('./index.html', 'UTF-8').pipe(res);
-    } else if (req.method === 'POST') {
+    } else if (req.url === '/message') {
         let body =" ";
         req.on('data', function(chunk) {
             body += chunk;
